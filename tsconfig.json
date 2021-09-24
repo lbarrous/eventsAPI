@@ -1,5 +1,5 @@
 {
-  "include": ["src/*.ts"],
+  "include": ["src/*.ts", "src/middlewares/middlewares.ts"],
 
   "compilerOptions": {
     "outDir": "dist",

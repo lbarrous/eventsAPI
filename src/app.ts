@@ -4,8 +4,7 @@ import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
-import api from './api';
-import middlewares from './middlewares';
+import { /* deserializeUser, */ notFound, errorHandler } from './middlewares';
 
 dotenv.config();
 
@@ -15,16 +14,10 @@ app.use(morgan('dev'));
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Express Works! Yeah!',
-  });
-});
-
-app.use('/api/v1', api);
-
-app.use(middlewares.notFound);
-app.use(middlewares.errorHandler);
+/* app.use(deserializeUser); */
+app.use(notFound);
+app.use(errorHandler);
 
 export default app;

@@ -1,32 +1,21 @@
-version: '3' 
+version: '3.7' 
 
 services:
   app: 
     build: . 
     links:
-      - "postgredb:db"
+      - mongo-db
     command: yarn dev 
     ports:
       - '3333:3333'
     volumes:
       - .:/usr/app
 
-  pgadmin:
-    image: dpage/pgadmin4
-    links:
-      - "postgredb:db"
+  mongo-db:
+    image: mongo
     ports:
-      - "8080:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "user@user.com"
-      PGADMIN_DEFAULT_PASSWORD : "1234"
-
-  postgredb:
-    image: postgres
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "1234"
-      PGDATA: /data/postgres
+      - "27017:27017"
+    container_name: mongo-db
+    volumes:
+      - ./db/:/data/db
 
