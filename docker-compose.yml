@@ -5,6 +5,8 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
+    volumes:
+      - ./src:/src
     ports:
       - "3081:3081"
     container_name: nodejs-api

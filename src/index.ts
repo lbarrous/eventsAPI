@@ -4,11 +4,10 @@ import log from './logger';
 import routes from './routes';
 
 const port: number = parseInt(process.env.PORT as string, 10) || 3000;
-const host: string = process.env.HOST as string;
 
-app.listen(port, host, () => {
+app.listen(port, () => {
   /* eslint-disable no-console */
-  log.info(`Server listing at http://${host}:${port}`);
+  log.info(`Server listing at http://localhost:${port}`);
   /* eslint-enable no-console */
   connect();
   routes(app);
