@@ -6,13 +6,13 @@ services:
       context: ./
       dockerfile: Dockerfile
     volumes:
-      - ./src:/src
+      - .:/usr/src/app
     ports:
       - "3081:3081"
     container_name: nodejs-api
     links:
       - mongo-db
-    command: npm run start
+    command: npm run dev
   mongo-db:
     image: mongo
     ports:
