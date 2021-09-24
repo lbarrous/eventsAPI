@@ -2,15 +2,15 @@ version: '3.7'
 
 services:
   app: 
-    build: . 
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "3081:3081"
+    container_name: nodejs-api
     links:
       - mongo-db
     command: npm run start
-    ports:
-      - '3081:3081'
-    volumes:
-      - .:/usr/app
-
   mongo-db:
     image: mongo
     ports:

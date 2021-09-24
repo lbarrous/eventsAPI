@@ -1,13 +1,20 @@
 FROM node:alpine
 
-WORKDIR /usr/app
+RUN mkdir -p /usr/src/app
 
-COPY package*.json ./
+WORKDIR /usr/src/app
 
-RUN yarn
+# copying all the files from your file system to container file system
+COPY package.json .
 
-COPY . .
+# install all dependencies
+RUN npm install
 
+# copy oter files as well
+COPY ./ .
+
+#expose the port
 EXPOSE 3081
 
-CMD yarn dev
+# command to run when intantiate an image
+CMD ["npm","run", "dev"]
