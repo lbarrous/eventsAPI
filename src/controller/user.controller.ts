@@ -9,7 +9,9 @@ const createUserHandler = async (req: Request, res: Response) => {
     const user = await createUser(req.body);
     return res.send(omit(user.toJSON(), 'password'));
   } catch (e) {
+    // @ts-ignore
     log.error(e);
+    // @ts-ignore
     return res.status(409).send(e.message);
   }
 };

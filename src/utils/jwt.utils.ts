@@ -15,6 +15,7 @@ export function decode(token: string) {
     return {
       valid: false,
       // We will use expired to see if we should reissue another token
+      // @ts-ignore
       expired: error.message === 'jwt expired',
       decoded: null,
     };

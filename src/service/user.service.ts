@@ -7,6 +7,7 @@ export const createUser = async (input: DocumentDefinition<UserDocument>) => {
   try {
     return await User.create(input);
   } catch (error) {
+    // @ts-ignore
     throw new Error(error);
   }
 };

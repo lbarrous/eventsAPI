@@ -4,7 +4,7 @@ import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
-import { notFound, errorHandler, deserializeUser } from './middlewares';
+import { deserializeUser } from './middlewares';
 
 dotenv.config();
 
@@ -17,7 +17,5 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(deserializeUser);
-app.use(notFound);
-app.use(errorHandler);
 
 export default app;

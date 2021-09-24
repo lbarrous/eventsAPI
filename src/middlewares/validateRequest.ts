@@ -13,7 +13,9 @@ const validate = (schema: AnySchema) => async (req: Request, res: Response, next
 
       return next();
   } catch (e) {
+    // @ts-ignore
     log.error(e);
+    // @ts-ignore
     return res.status(400).send(e.errors);
   }
   };

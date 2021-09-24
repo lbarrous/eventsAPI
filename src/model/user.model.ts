@@ -19,6 +19,7 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// @ts-ignore
 UserSchema.pre('save', async function (next: mongoose.HookNextFunction) {
   const user = this as UserDocument;
 
@@ -27,6 +28,7 @@ UserSchema.pre('save', async function (next: mongoose.HookNextFunction) {
 
   // Random additional data
   const saltWorkFactor = (process.env.SALT_WORK_FACTOR as string) || '';
+  // @ts-ignore
   const salt = await bcryptjs.genSalt(saltWorkFactor);
 
   const hash = await bcryptjs.hashSync(user.password, salt);

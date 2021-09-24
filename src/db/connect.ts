@@ -7,6 +7,7 @@ function connect() {
 
   return mongoose
     .connect(dbUri, {
+    // @ts-ignore
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
