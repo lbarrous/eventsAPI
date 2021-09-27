@@ -28,7 +28,7 @@ export const createAccessToken = async ({
   // Build and return the new access token
   const accessToken = sign(
     { ...user, session: session._id },
-    { expiresIn: process.env.ACCESS_TOKEN_TTL as string },
+    { expiresIn: '15m' },
   );
 
   return accessToken;

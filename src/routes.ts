@@ -4,6 +4,8 @@ import {
   createEventHandler,
   deletePostHandler,
   getEventHandler,
+  getEventsHandler,
+  subscribeEventHandler,
   updatePostHandler,
 } from './controller/event.controller';
 import {
@@ -16,6 +18,7 @@ import { requiresUser, validateRequest } from './middlewares';
 import {
   createEventSchema,
   deleteEventSchema,
+  subscribeToEventSchema,
   updateEventSchema,
 } from './schema/event.schema';
 import {
@@ -36,20 +39,26 @@ export default function (app: Express) {
   app.delete('/api/sessions', requiresUser, invalidateUserSessionHandler);
   app.get('/api/sessions', requiresUser, getUserSessionsHandler);
   /* Events */
+  app.get('/api/events', getEventsHandler);
   app.post(
     '/api/events',
     [requiresUser, validateRequest(createEventSchema)],
     createEventHandler,
   );
-  app.get('/api/posts/:eventId', getEventHandler);
+  app.get('/api/events/:eventId', getEventHandler);
   app.put(
-    '/api/posts/:postId',
+    '/api/events/:eventId',
     [requiresUser, validateRequest(updateEventSchema)],
     updatePostHandler,
   );
   app.delete(
-    '/api/posts/:postId',
+    '/api/events/:eventId',
     [requiresUser, validateRequest(deleteEventSchema)],
     deletePostHandler,
+  );
+  app.post(
+    '/api/events/subscribe/:eventId',
+    [requiresUser, validateRequest(subscribeToEventSchema)],
+    subscribeEventHandler,
   );
 }

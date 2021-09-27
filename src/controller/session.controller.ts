@@ -22,7 +22,7 @@ export const createUserSessionHandler = async (req: Request, res: Response) => {
   const session = await createSession(user._id, req.get('user-agent') || '');
 
   // create access token
-  const accessToken = createAccessToken({
+  const accessToken = await createAccessToken({
     user,
     session,
   });

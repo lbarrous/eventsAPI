@@ -15,7 +15,16 @@ export const findEvent = (
   options: QueryOptions = { lean: true },
 ) => Event.findOne(query, {}, options);
 
-export const findAndUpdate = (
+export const findEvents = (
+    fields: string,
+  ) => Event.find({}, fields);
+
+export const findEventsByUser = (
+  query: FilterQuery<EventDocument>,
+  options: QueryOptions = { lean: true },
+) => Event.find(query, {}, options);
+
+export const findAndUpdateEvent = (
   query: FilterQuery<EventDocument>,
   update: UpdateQuery<EventDocument>,
   options: QueryOptions,

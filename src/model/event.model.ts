@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import { UserDocument } from './user.model';
 
 export interface EventDocument extends mongoose.Document {
+  eventId: string;
   creator: UserDocument['_id'];
   headline: string;
   description: string;
@@ -22,12 +23,14 @@ const EventSchema = new mongoose.Schema(
       default: () => nanoid(10),
     },
     creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    headline: { type: String, default: true },
-    description: { type: String, default: true },
-    startDate: { type: Date, default: true },
+    headline: { type: String },
+    description: { type: String },
+    location: { type: String },
+    status: { type: String, default: 'PRIVATE' },
+    startDate: { type: Date, default: new Date() },
     subscriptors: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'User',
       },
     ],

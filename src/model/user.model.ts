@@ -1,12 +1,17 @@
 import bcryptjs from 'bcryptjs';
 import mongoose from 'mongoose';
 
+import { EventDocument } from './event.model';
+
+const SALT_WORK_FACTOR = 10;
+
 export interface UserDocument extends mongoose.Document {
   email: string;
   name: string;
   password: string;
   createdAt: Date;
   updatedAt: Date;
+  subscriptions: [EventDocument['_id']];
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
@@ -15,8 +20,14 @@ const UserSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     password: { type: String, required: true },
+    subscriptions: [
+      {
+        type: String,
+        ref: 'Event',
+      },
+    ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 // @ts-ignore
@@ -27,9 +38,7 @@ UserSchema.pre('save', async function (next: mongoose.HookNextFunction) {
   if (!user.isModified('password')) return next();
 
   // Random additional data
-  const saltWorkFactor = (process.env.SALT_WORK_FACTOR as string) || '';
-  // @ts-ignore
-  const salt = await bcryptjs.genSalt(saltWorkFactor);
+  const salt = await bcryptjs.genSalt(SALT_WORK_FACTOR);
 
   const hash = await bcryptjs.hashSync(user.password, salt);
 
@@ -41,7 +50,7 @@ UserSchema.pre('save', async function (next: mongoose.HookNextFunction) {
 
 // Used for logging in
 UserSchema.methods.comparePassword = async function (
-  candidatePassword: string,
+  candidatePassword: string
 ) {
   const user = this as UserDocument;
 
