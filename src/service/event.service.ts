@@ -19,7 +19,7 @@ export const findEvents = (
     fields: string,
   ) => Event.find({}, fields);
 
-export const findEventsByUser = (
+export const findEventsByCriteria = (
   query: FilterQuery<EventDocument>,
   options: QueryOptions = { lean: true },
 ) => Event.find(query, {}, options);

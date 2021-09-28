@@ -9,7 +9,7 @@ export const createUserSchema = object({
       .matches(/^[a-zA-Z0-9_.-]*$/, 'Password can only contain Latin letters.'),
     passwordConfirmation: string().oneOf(
       [ref('password'), null],
-      'Passwords must match',
+      'Passwords must match'
     ),
     email: string()
       .email('Must be a valid email')

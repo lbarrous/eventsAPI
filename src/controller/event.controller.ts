@@ -7,7 +7,7 @@ import {
   findAndUpdateEvent,
   findEvent,
   findEvents,
-  findEventsByUser,
+  findEventsByCriteria,
 } from '../service/event.service';
 import { findAndUpdateUser, findUser } from '../service/user.service';
 import {
@@ -20,7 +20,7 @@ export const createEventHandler = async (req: Request, res: Response) => {
   const { body } = req;
 
   const numberOfAlreadyCreatedEvents = (
-    await findEventsByUser({ creator: userId })
+    await findEventsByCriteria({ creator: userId })
   ).length;
 
   if (numberOfAlreadyCreatedEvents > 1) {
@@ -116,13 +116,13 @@ export const subscribeEventHandler = async (req: Request, res: Response) => {
   await findAndUpdateEvent(
     { eventId },
     { subscriptors: [...event.subscriptors, user._id] },
-    {}
+    {},
   );
 
   await findAndUpdateUser(
     { _id: userId },
     { subscriptions: [...user.subscriptions, event._id] },
-    {}
+    {},
   );
-  return res.status(200).send('Subscription successfully made');
+  return res.sendStatus(200);
 };
