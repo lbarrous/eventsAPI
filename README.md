@@ -1,6 +1,8 @@
-# Express API Starter - Typescript
+# Events API 
 
-Includes API Server utilities:
+This API allows you to handle bussiness logic about events creation (Like for example meetings, videocalls...)
+
+This API uses some features:
 
 - [morgan](https://www.npmjs.com/package/morgan)
   - HTTP request logger middleware for node.js
@@ -14,11 +16,9 @@ Development utilities:
 - [ts-node-dev](https://www.npmjs.com/package/ts-node-dev)
   - ts-node-dev is a library that restarts target node process when any of required files changes (as standard node-dev) but shares Typescript compilation process between restarts.
 - [eslint](https://www.npmjs.com/package/eslint)
-  - ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
 - [typescript](https://www.npmjs.com/package/typescript)
-  - TypeScript is a language for application-scale JavaScript. Javascript with superpowers!
 - [docker](https://www.docker.com/)
-  - Docker is a set of platform as a service (PaaS) products that use OS-level virtualization to deliver software in packages called containers.
+- [socket.io](https://www.socket.io/)
 
 ## Setup
 
@@ -38,14 +38,14 @@ npm run lint
 npm run dev
 ```
 
-## Docker
+## For docker deployment
+
+* Need for docker-compose and docker to be installed in your machine.
+  
+```
+docker-compose build
+```
 
 ```
-npm run docker
-```
-
-## Build
-
-```
-npm run build
+docker-compose up
 ```

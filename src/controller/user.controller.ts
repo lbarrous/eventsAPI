@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { get, omit } from 'lodash';
+import moment from 'moment';
 
 import log from '../logger';
 import { findEventsByCriteria } from '../service/event.service';
@@ -42,4 +43,19 @@ export async function getUserSubscriptionsHandler(req: Request, res: Response) {
   const subscriptions = await findEventsByCriteria({ subscriptors: userId });
 
   return res.send(subscriptions);
+}
+
+export async function getNotificationsHandler(userId: string) {
+  const user = await findUser({ _id: userId });
+  const subscriptions = await findEventsByCriteria({
+    _id: { $in: user?.subscriptions },
+  });
+  const subscriptionsToNotify = subscriptions.filter((sub) => {
+    const now = moment(new Date());
+    const startDate = moment(new Date(sub.startDate));
+    // @ts-ignore
+    const difference = moment.duration(startDate.diff(now)) / 60000;
+    return difference >= 0 && difference <= 200;
+  });
+  return subscriptionsToNotify;
 }
