@@ -49,3 +49,17 @@ docker-compose build
 ```
 docker-compose up
 ```
+
+### Environment variables
+
+You need to add a .env file with this information:
+
+```
+NODE_ENV="development"
+PORT="3081"
+HOST="localhost"
+MONGO_CONNECTION_STRING="mongodb://mongo-db:27017"
+ACCESS_TOKEN_TTL="15m"
+REFRESH_TOKEN_TTL="1y"
+PRIVATE_KEY="Your private key" (Generate here: https://travistidwell.com/jsencrypt/demo/)
+```
