@@ -16,12 +16,19 @@ const payload = {
       .test(
         'allowedDate',
         'Must be a valid date (yyyy-mm-dd hh:mm.ss)',
-        (val) => DATE_REGEX.test(val || ''),
+        (val) => DATE_REGEX.test(val || '')
       )
       .test('afterToday', 'Start date must be after today', (val) => {
         const momentDate = moment(val, 'YYYY-MM-DD HH:mm:ss');
         return momentDate.isAfter(moment());
       }),
+    status: string()
+      .required('Status is required')
+      .test(
+        'allowedValue',
+        'Must be a valid status (Public, Private or Draft)',
+        (val) => EVENT_STATUS_TYPES.includes(val || '')
+      ),
   }),
 };
 

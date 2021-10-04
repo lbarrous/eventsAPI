@@ -12,6 +12,7 @@ describe('Event schema', () => {
     ${{ body: { headline: 'headline', description: 'description', location: 'location' } }}
     ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: 'invaliDate' } }}
     ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: '2020-09-29 01:30:00' } }}
+    ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: '2022-09-29 01:30:00', status: '' } }}
   `(
     'Create event schema should, when event body is $eventBody throw an error',
     async ({ eventBody }) => {
@@ -30,8 +31,9 @@ describe('Event schema', () => {
     ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: 'invaliDate' } }}
     ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: '2020-09-29 01:30:00' } }}
     ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: '2022-09-29 01:30:00' }, params: {} }}
-    ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: '2022-09-29 01:30:00' }, params: { eventId: 'eventId' } }}
-    ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: '2022-09-29 01:30:00' }, params: { eventId: 'eventId', status: 'invalidStatus' } }}
+    ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: '2022-09-29 01:30:00', status: 'PRIVATE' } }}
+    ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: '2022-09-29 01:30:00', status: 'PRIVATE' }, params: { eventId: 'eventId' } }}
+    ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: '2022-09-29 01:30:00', status: 'PRIVATE' }, params: { eventId: 'eventId', status: 'invalidStatus' } }}
   `(
     'Update event schema should, when event body is $eventBody throw an error',
     async ({ eventBody }) => {
