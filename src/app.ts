@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 
 import { deserializeUser } from './middlewares';
+import routes from './routes';
 
 dotenv.config();
 
@@ -17,5 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(deserializeUser);
+
+routes(app);
 
 export default app;

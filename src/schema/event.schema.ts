@@ -34,14 +34,7 @@ const payload = {
 
 const updateEventParams = {
   params: object({
-    eventId: string().required('eventId is required'),
-    status: string()
-      .required('Status is required')
-      .test(
-        'allowedValue',
-        'Must be a valid status (Public, Private or Draft)',
-        (val) => EVENT_STATUS_TYPES.includes(val || '')
-      ),
+    eventId: string().required('eventId is required')
   }),
 };
 

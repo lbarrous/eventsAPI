@@ -32,8 +32,7 @@ describe('Event schema', () => {
     ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: '2020-09-29 01:30:00' } }}
     ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: '2022-09-29 01:30:00' }, params: {} }}
     ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: '2022-09-29 01:30:00', status: 'PRIVATE' } }}
-    ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: '2022-09-29 01:30:00', status: 'PRIVATE' }, params: { eventId: 'eventId' } }}
-    ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: '2022-09-29 01:30:00', status: 'PRIVATE' }, params: { eventId: 'eventId', status: 'invalidStatus' } }}
+    ${{ body: { headline: 'headline', description: 'description', location: 'location', startDate: '2022-09-29 01:30:00', status: 'PRIVATE' }, params: {} }}
   `(
     'Update event schema should, when event body is $eventBody throw an error',
     async ({ eventBody }) => {

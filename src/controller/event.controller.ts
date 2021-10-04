@@ -15,6 +15,8 @@ import {
   subscriptionAlreadyMade,
 } from './validators/event.validators';
 
+const PUBLIC_STATUS = 'PUBLIC';
+
 export const createEventHandler = async (req: Request, res: Response) => {
   const userId = get(req, 'user._id');
   const { body } = req;
@@ -42,10 +44,20 @@ export const getEventsHandler = async (req: Request, res: Response) => {
 
 export const getEventHandler = async (req: Request, res: Response) => {
   const eventId = get(req, 'params.eventId');
+  const userId = get(req, 'user._id');
   const event = await findEvent({ eventId });
 
   if (!event) {
     return res.sendStatus(404);
+  }
+
+  if (userId && String(event.creator) !== userId) {
+    return res.sendStatus(403);
+  }
+
+  // @ts-ignore
+  if (event.status !== PUBLIC_STATUS) {
+    return res.sendStatus(403);
   }
 
   return res.send(event);
@@ -116,13 +128,13 @@ export const subscribeEventHandler = async (req: Request, res: Response) => {
   await findAndUpdateEvent(
     { eventId },
     { subscriptors: [...event.subscriptors, user._id] },
-    {},
+    {}
   );
 
   await findAndUpdateUser(
     { _id: userId },
     { subscriptions: [...user.subscriptions, event._id] },
-    {},
+    {}
   );
   return res.sendStatus(200);
 };
